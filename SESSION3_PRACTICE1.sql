@@ -56,16 +56,31 @@ AND months <10
 ORDER BY employee_id ASC;
 
 --- Exercise 9 
-
+SELECT product_id
+FROM Products
+WHERE low_fats = 'Y'
+AND recyclable = 'Y'
+ORDER BY product_id ASC;
 
 --- Exercise 10
-
+SELECT name
+FROM Customer
+WHERE referee_id <> 2
+OR referee_id IS NULL
+ORDER BY name ASC;
 
 --- Exercise 11
-
+SELECT name, population, area
+FROM World
+WHERE area >=3000000
+OR population >=25000000
+ORDER BY name ASC;
 
 --- Exercise 12
-
+SELECT DISTINCT author_id AS id
+FROM Views
+WHERE author_id = viewer_id
+ORDER BY id ASC;
 
 --- Exercise 13
 SELECT part, assembly_step 
