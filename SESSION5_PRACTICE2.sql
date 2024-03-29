@@ -42,3 +42,38 @@ GROUP BY card_name
 ORDER BY MAX(issued_amount) - MIN(issued_amount) DESC;
 
 --- Exercise 8
+SELECT
+manufacturer,
+COUNT(drug) AS drug_count,
+ABS(SUM(total_sales - cogs)) AS total_loss
+FROM pharmacy_sales
+WHERE cogs > total_sales
+GROUP BY manufacturer
+ORDER BY total_loss DESC;
+
+--- Exercise 9
+SELECT *
+FROM Cinema
+WHERE id%2 >0
+AND description NOT LIKE 'boring'
+ORDER BY rating DESC;
+
+--- Exercise 10
+SELECT teacher_id, 
+COUNT(DISTINCT subject_id) AS cnt
+FROM Teacher
+GROUP BY teacher_id;
+
+--- Exercise 11
+SELECT
+user_id,
+COUNT(follower_id) AS followers_count
+FROM Followers
+GROUP BY user_id
+ORDER BY user_id;
+
+--- Exercise 12
+SELECT class
+FROM Courses
+GROUP BY class
+HAVING COUNT(student)>=5;
