@@ -17,5 +17,28 @@ SELECT ROUND(CAST(SUM(item_count * order_occurrences) / SUM(order_occurrences) A
 FROM items_per_order;
 
 --- Exercise 5
+SELECT candidate_id
+FROM candidates
+WHERE skill IN ('Python', 'Tableau', 'PostgreSQL')
+GROUP BY candidate_id
+HAVING COUNT(skill) = 3
+ORDER BY candidate_id ASC;
 
+--- Exercise 6
+SELECT
+user_id,
+DATE(MAX(post_date)) - DATE(MIN(post_date)) AS days_between
+FROM posts
+WHERE EXTRACT(YEAR FROM post_date) = 2021
+GROUP BY user_id
+HAVING COUNT (post_id) >1;
 
+--- Exercise 7
+SELECT 
+card_name,
+MAX(issued_amount) - MIN(issued_amount) AS Difference
+FROM monthly_cards_issued
+GROUP BY card_name
+ORDER BY MAX(issued_amount) - MIN(issued_amount) DESC;
+
+--- Exercise 8
