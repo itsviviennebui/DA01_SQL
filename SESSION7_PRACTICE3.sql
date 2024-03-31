@@ -47,3 +47,29 @@ FROM Tweets
 WHERE LENGTH(content)>15;
 
 -- Exercise 7
+SELECT
+activity_date AS day,
+COUNT(DISTINCT user_id) AS active_users
+FROM Activity
+WHERE DATEDIFF('2019-07-27', activity_date) BETWEEN 0 AND 29
+GROUP BY 1;
+
+-- Exercise 8
+SELECT 
+COUNT(id) AS employees_hired
+FROM employees
+WHERE EXTRACT(month FROM joining_date) BETWEEN 1 AND 7
+AND EXTRACT(year FROM joining_date) = 2022;
+
+-- Exercise 9
+SELECT
+POSITION('a' IN first_name)
+FROM worker
+WHERE first_name = 'Amitah';
+
+-- Exercise 10
+SELECT
+title,
+SUBSTRING(title FROM LENGTH(winery)+2 FOR 4) AS year
+FROM winemag_p2
+WHERE country = 'Macedonia';
