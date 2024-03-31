@@ -41,3 +41,9 @@ ORDER BY COUNT(message_id) DESC
 LIMIT 2;
 
 -- Exercise 6
+SELECT
+tweet_id
+FROM Tweets
+WHERE LENGTH(content)>15;
+
+-- Exercise 7
