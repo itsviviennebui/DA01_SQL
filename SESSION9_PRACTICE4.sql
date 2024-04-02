@@ -17,6 +17,7 @@ END AS triangle
 FROM Triangle;
 
 -- Exercise 3
+-- Nhờ chị Quỳnh và Kiên check giúp em/chị bài 3 này run code luôn bị failed ạ
 SELECT
 ROUND((SUM(CASE 
     WHEN call_category IS NULL OR case_id = 'n/a' THEN 1 ELSE 0
