@@ -19,3 +19,4 @@ ON emails.email_id = texts.email_id;
 
 -- Exercise 3
 
+-- Exercise 4
