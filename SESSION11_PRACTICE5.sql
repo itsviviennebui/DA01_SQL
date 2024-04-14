@@ -50,3 +50,20 @@ HAVING reports_count >0
 ORDER BY 1;
 
 -- Exercise 6
+SELECT
+Products.product_name,
+SUM(Orders.unit) AS unit
+FROM Orders
+LEFT JOIN Products
+ON Orders.product_id = Products.product_id
+WHERE MONTH(Orders.order_date) = 2 AND YEAR(Orders.order_date) = 2020
+GROUP BY Products.product_id
+HAVING SUM(Orders.unit) >=100;
+
+-- Exercise 7
+SELECT pages.page_id
+FROM pages
+LEFT JOIN page_likes
+ON pages.page_id = page_likes.page_id
+WHERE page_likes.page_id IS NULL
+ORDER BY pages.page_id;
