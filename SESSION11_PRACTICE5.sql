@@ -144,3 +144,8 @@ GROUP BY city.city
 ORDER BY SUM(payment.amount) DESC;
 
 -- Question 8
+SELECT 
+city.city || ', ' || country.country
+FROM city
+JOIN country
+ON city.country_id = country.country_id
