@@ -67,3 +67,16 @@ LEFT JOIN page_likes
 ON pages.page_id = page_likes.page_id
 WHERE page_likes.page_id IS NULL
 ORDER BY pages.page_id;
+
+
+
+--------------------------------- MID COURSE TEST ---------------------------------
+
+-- Question 1
+SELECT DISTINCT(replacement_cost)
+FROM film
+ORDER BY replacement_cost ASC;
+
+-- Question 2
+
+
