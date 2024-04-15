@@ -70,7 +70,7 @@ ORDER BY pages.page_id;
 
 
 
---------------------------------- MID COURSE TEST ---------------------------------
+--------------------------------- MID-COURSE TEST ---------------------------------
 
 -- Question 1
 SELECT DISTINCT(replacement_cost)
@@ -78,5 +78,41 @@ FROM film
 ORDER BY replacement_cost ASC;
 
 -- Question 2
+SELECT
+CASE 
+	WHEN replacement_cost BETWEEN 9.99 AND 19.99 THEN 'Low'
+	WHEN replacement_cost BETWEEN 20.00 AND 24.99 THEN 'Medium'
+	ELSE 'High'
+END AS cost_category,
+COUNT(*) AS films_count
+FROM film
+WHERE (CASE 
+	WHEN replacement_cost BETWEEN 9.99 AND 19.99 THEN 'Low'
+	WHEN replacement_cost BETWEEN 20.00 AND 24.99 THEN 'Medium'
+	ELSE 'High'
+END) = 'Low'
+GROUP BY cost_category
 
+-- Question 3
+SELECT
+film.title,
+film.length,
+category.name
+FROM film
+JOIN film_category ON film.film_id = film_category.film_id
+JOIN category ON film_category.category_id = category.category_id
+WHERE category.name IN ('Drama', 'Sports')
+ORDER BY film.length DESC;
+
+-- Question 4
+SELECT
+category.name AS category,
+COUNT(DISTINCT film.film_id) AS film_count
+FROM category
+JOIN film_category ON category.category_id = film_category.category_id
+JOIN film ON film_category.film_id = film.film_id
+GROUP BY category.name
+ORDER BY COUNT(DISTINCT film.film_id) DESC;
+
+-- Question 5
 
