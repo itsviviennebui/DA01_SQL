@@ -115,4 +115,32 @@ GROUP BY category.name
 ORDER BY COUNT(DISTINCT film.film_id) DESC;
 
 -- Question 5
+SELECT
+actor.first_name || ' ' || actor.last_name AS actor_name,
+COUNT(film_actor.film_id) AS film_count
+FROM actor
+JOIN film_actor
+ON actor.actor_id = film_actor.actor_id
+GROUP BY actor.first_name || ' ' || actor.last_name
+ORDER BY COUNT(film_actor.film_id) DESC;
 
+-- Question 6
+SELECT 
+COUNT(address.address_id)
+FROM address
+LEFT JOIN customer
+ON address.address_id = customer.address_id
+WHERE customer.address_id IS NULL;
+
+-- Question 7
+SELECT
+city.city AS name,
+SUM(payment.amount) AS revenue
+FROM city
+JOIN address ON city.city_id = address.city_id
+JOIN customer ON address.address_id = customer.address_id
+JOIN payment ON customer.customer_id = payment.customer_id
+GROUP BY city.city
+ORDER BY SUM(payment.amount) DESC;
+
+-- Question 8
