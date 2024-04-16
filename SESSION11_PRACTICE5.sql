@@ -144,8 +144,14 @@ GROUP BY city.city
 ORDER BY SUM(payment.amount) DESC;
 
 -- Question 8
-SELECT 
-city.city || ', ' || country.country
+
+SELECT
+city.city || ', ' || country.country AS name,
+SUM(payment.amount) AS revenue
 FROM city
-JOIN country
-ON city.country_id = country.country_id
+JOIN country ON city.country_id = country.country_id
+JOIN address ON city.city_id = address.city_id
+JOIN customer ON address.address_id = customer.address_id
+JOIN payment ON customer.customer_id = payment.customer_id
+GROUP BY city.city || ', ' || country.country
+ORDER BY SUM(payment.amount) DESC; 
