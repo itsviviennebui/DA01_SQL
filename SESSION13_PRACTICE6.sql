@@ -43,3 +43,28 @@ FROM call_count
 WHERE number_of_call >=3;
 
 -- Exercise 4
+SELECT page_id
+FROM pages
+WHERE NOT EXISTS
+  (SELECT page_id
+  FROM page_likes AS likes
+  WHERE pages.page_id = likes.page_id);
+
+-- Exercise 5
+WITH last_month AS
+  (SELECT user_id
+  FROM user_actions
+  WHERE EXTRACT(MONTH FROM event_date) = 6
+  AND EXTRACT(YEAR FROM event_date) = 2022)
+SELECT
+  EXTRACT(MONTH FROM current_month.event_date) AS month,
+  COUNT(DISTINCT current_month.user_id) AS monthly_active_users
+FROM user_actions AS current_month
+JOIN last_month
+ON current_month.user_id = last_month.user_id
+WHERE EXTRACT(MONTH FROM current_month.event_date) = 7
+AND EXTRACT(YEAR FROM current_month.event_date) = 2022
+GROUP BY EXTRACT(MONTH FROM current_month.event_date);
+
+-- Exercise 6
+
