@@ -76,3 +76,72 @@ SUM(amount) AS trans_total_amount,
 SUM(CASE WHEN state = 'approved' THEN amount ELSE 0 END) AS approved_total_amount
 FROM Transactions
 GROUP BY DATE_FORMAT(trans_date, '%Y-%m'), country;
+
+-- Exercise 7
+/* USING SUBQUERY */
+SELECT
+product_id,
+year as first_year,
+quantity,
+price
+FROM Sales
+WHERE (product_id, year) IN (
+    SELECT
+    product_id,
+    MIN(year)
+    FROM Sales
+GROUP BY product_id);
+
+/* USING CTE */
+WITH year_order AS
+    (SELECT
+    product_id,
+    year,
+    quantity,
+    price,
+    RANK() OVER(PARTITION BY product_id ORDER BY YEAR ASC) AS year_rank
+    FROM Sales)
+SELECT
+product_id,
+year AS first_year,
+quantity,
+price
+FROM year_order
+WHERE year_rank = 1;
+
+
+-- Exercise 8
+SELECT
+customer_id
+FROM Customer
+GROUP BY customer_id
+HAVING COUNT(DISTINCT product_key) = (
+    SELECT
+    COUNT(DISTINCT product_key)
+    FROM Product);
+
+-- Exercise 9
+SELECT
+employee_id
+FROM Employees
+WHERE salary <30000
+AND manager_id NOT IN (
+    SELECT
+    employee_id
+    FROM Employees)
+ORDER BY employee_id;
+
+-- Exercise 10
+SELECT
+employee_id,
+department_id
+FROM Employee
+WHERE primary_flag = 'Y'
+OR employee_id IN (
+    SELECT
+    employee_id
+    FROM Employee
+    GROUP BY employee_id
+    HAVING COUNT(department_id) =1);
+
+-- Exercise 11
