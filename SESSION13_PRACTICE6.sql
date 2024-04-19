@@ -145,3 +145,37 @@ OR employee_id IN (
     HAVING COUNT(department_id) =1);
 
 -- Exercise 11
+(SELECT
+name AS results
+FROM Users
+JOIN MovieRating
+ON Users.user_id = MovieRating.user_id
+GROUP BY name
+ORDER BY COUNT(*) DESC, name ASC
+LIMIT 1)
+UNION ALL
+(SELECT
+title AS results
+FROM Movies
+JOIN MovieRating
+ON Movies.movie_id = MovieRating.movie_id
+WHERE EXTRACT(MONTH FROM MovieRating.created_at) = 2
+AND EXTRACT(YEAR FROM MovieRating.created_at) = 2020
+GROUP BY title
+ORDER BY AVG(MovieRating.rating) DESC, title ASC
+LIMIT 1);
+
+-- Exercise 12
+WITH merge AS (
+    SELECT requester_id AS id
+    FROM RequestAccepted
+    UNION ALL
+    SELECT accepter_id AS id
+    FROM RequestAccepted)
+SELECT
+id,
+COUNT(*) AS num
+FROM merge
+GROUP BY id
+ORDER BY COUNT(*) DESC
+LIMIT 1;
